@@ -1,52 +1,58 @@
-﻿#include <iostream>
+#include <iostream>
 using namespace std;
 
-// In software engineering, the singleton pattern is a software design pattern
+// In software engineering, the Application pattern is a software design pattern
 // that restricts the instantiation of a class to one "single" instance.
 // This is useful when exactly one object is needed to coordinate actions across the system.
 
-// https://refactoring.guru/ru/design-patterns/singleton
+// https://refactoring.guru/ru/design-patterns/Singleton
 
-// SINGLETON LOGGER EXAMPLE: https://git.io/vo9CN
+// Another Singleton LOGGER EXAMPLE: https://git.io/vo9CN
 
-class Singleton
-{
-	static Singleton* instance;
-	int data;
+class Application {
+	static Application* instance;
+	int window_width;
+	int window_height;
+	string localization;
 
-// private:
-	Singleton()
-	{
-		data = 50;
+	// private:
+	Application() {
+		window_width = 800;
+		window_height = 600;
+		localization = "uk";
 	}
 
 public:
-	static Singleton* GetInstance()
-	{
+	static Application* getInstance() {
 		if (instance == nullptr)
-			instance = new Singleton;
+			instance = new Application;
 		return instance;
 	}
 
-	int GetData() const
-	{
-		return data;
+	int getWidth() const {
+		return window_width;
 	}
 
-	void SetData(int value)
-	{
-		data = value;
+	int getHeight() const {
+		return window_height;
+	}
+
+	void setWidth(int width) {
+		window_width = width;
+	}
+
+	void setHeight(int height) {
+		window_height = height;
 	}
 };
 
-Singleton* Singleton::instance = nullptr;
+Application* Application::instance = nullptr;
 
-int main()
-{
-	Singleton* s = Singleton::GetInstance();
-	// Singleton object; // ERROR
-	// Singleton* dynamic_object = new Singleton; // ERROR
-	cout << s->GetData() << "\n";
-	s->SetData(75);
-	cout << s->GetData() << "\n";
+int main() {
+	Application* app = Application::getInstance();
+	// Application object; // ERROR
+	// Application* dynamic_object = new Application; // ERROR
+	cout << app->getWidth() << "\n"; // 800
+	app->setWidth(1024); 
+	cout << app->getWidth() << "\n"; // 1024
 }
